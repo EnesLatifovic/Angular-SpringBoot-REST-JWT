@@ -11,7 +11,7 @@ USE northwind;
 /* Table: user (Application Users) */
 CREATE TABLE user (
     user_id     NVARCHAR(20) NOT NULL,
-    password    NVARCHAR(20) NOT NULL,
+    password    NVARCHAR(256) NOT NULL,
     first_name  NVARCHAR(50) ,
     last_name   NVARCHAR(50) ,
     email       NVARCHAR(70) ,

@@ -1,8 +1,12 @@
 package com.app.config;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.*;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import com.app.identity.*;
 import org.springframework.core.annotation.Order;
 
+import java.security.SecureRandom;
 
 @Configuration
 @EnableWebSecurity
@@ -46,16 +51,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ;
     }
 
-    /*
-    * If You want to store encoded password in your databases and authenticate user
-    * based on encoded password then uncomment the below method and provde an encoder
 
-    //@Autowired
-    //private UserDetailsService userDetailsService;
+    //* If You want to store encoded password in your databases and authenticate user
+    ///* based on encoded password then uncomment the below method and provde an encoder
+    //https://www.devglan.com/online-tools/bcrypt-hash-generator
+
+    //String salt = BCrypt.gensalt();
+    //String pw_hash = BCrypt.hashpw(plain_password, salt);
+    //if (BCrypt.checkpw(candidate_password, stored_hash))
+    //    System.out.println("It matches");
+    //else
+    //    System.out.println("It does not match");
+
+    //String encoded = new BCryptPasswordEncoder().encode(plainTextPassword);
+
+/*
+    private static final String SALT = "enes1234"; // Salt should be protected carefully
+
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder(12, new SecureRandom(SALT.getBytes()));
+    }
+ */
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        //auth.userDetailsService(userDetailsService).bCryptPasswordEncoder(passwordEncoder());
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
-    */
+
+
 }

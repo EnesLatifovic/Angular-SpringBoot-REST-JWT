@@ -11,5 +11,6 @@ public class SessionItem {
     private String  firstName;
     private String  lastName;
     private String  email;
-    private List<String> roles;
+    private String  role;
+    // private List<String> roles;
 }

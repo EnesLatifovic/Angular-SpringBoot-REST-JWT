@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/api/login.service';
 import { Router } from '@angular/router';
+import * as bcrypt from 'bcryptjs';
 
 @Component({
 	selector   : 's-login-pg',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
-        this.loginService.getToken(this.model.username, this.model.password)
+        const salt = bcrypt.genSaltSync(10);
+        this.loginService.getToken(this.model.username, bcrypt.hashSync(this.model.password, salt))
             .subscribe(resp => {
                     if (resp.user === undefined || resp.user.token === undefined || resp.user.token === "INVALID" ){
                         this.errMsg = 'Username or password is incorrect';
