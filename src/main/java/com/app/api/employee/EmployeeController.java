@@ -64,7 +64,7 @@ public class EmployeeController {
 
 
     @ApiOperation(value = "Delete a Employee", response = OperationResponse.class)
-    @RequestMapping(value = "/Employees/{employeeId}", method = RequestMethod.DELETE, produces = {"application/json"})
+    @RequestMapping(value = "/employees/{employeeId}", method = RequestMethod.DELETE, produces = {"application/json"})
     public OperationResponse deleteEmployee(@PathVariable("employeeId") Integer employeeId, HttpServletRequest req) {
         OperationResponse resp = new OperationResponse();
         try {
